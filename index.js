@@ -1,28 +1,29 @@
+require('dotenv').config()
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 const mongoose = require('mongoose')
 
-const url =
-'mongodb+srv://tduyphat:Duyphat080300@cluster0.bhss4.mongodb.net/phonebook?retryWrites=true&w=majority'
+// const url =
+// 'mongodb+srv://tduyphat:Duyphat080300@cluster0.bhss4.mongodb.net/phonebook?retryWrites=true&w=majority'
 
-mongoose.connect(url)
+// mongoose.connect(url)
 
-const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
-})
+// const personSchema = new mongoose.Schema({
+//   name: String,
+//   number: String,
+// })
 
-const Person = mongoose.model('Person', personSchema)
+const Person = require('./models/person')
 
-personSchema.set('toJSON', {
-  transform: (person, returnedPerson) => {
-    returnedPerson.id = returnedPerson._id.toString()
-    delete returnedPerson._id
-    delete returnedPerson.__v
-  }
-})
+// personSchema.set('toJSON', {
+//   transform: (person, returnedPerson) => {
+//     returnedPerson.id = returnedPerson._id.toString()
+//     delete returnedPerson._id
+//     delete returnedPerson.__v
+//   }
+// })
 
 let persons = [
     { 
@@ -115,7 +116,7 @@ app.get('/info',(request, response) => {
   
   app.use(unknownEndpoint)
 
-  const PORT = process.env.PORT || 3001
+  const PORT = process.env.PORT 
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
   })
