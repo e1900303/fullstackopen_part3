@@ -1,7 +1,6 @@
 {
   "name": "backend",
   "version": "0.0.1",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -13,10 +12,19 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^6.2.0",
+    "mongoose": "^6.2.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
-  }
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/e1900303/fullstackopen_part3.git"
+  },
+  "bugs": {
+    "url": "https://github.com/e1900303/fullstackopen_part3/issues"
+  },
+  "homepage": "https://github.com/e1900303/fullstackopen_part3#readme",
+  "description": ""
 }

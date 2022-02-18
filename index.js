@@ -1,9 +1,28 @@
-const { response } = require('express')
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
+const mongoose = require('mongoose')
 
+const url =
+'mongodb+srv://tduyphat:Duyphat080300@cluster0.bhss4.mongodb.net/phonebook?retryWrites=true&w=majority'
+
+mongoose.connect(url)
+
+const personSchema = new mongoose.Schema({
+  name: String,
+  number: String,
+})
+
+const Person = mongoose.model('Person', personSchema)
+
+personSchema.set('toJSON', {
+  transform: (person, returnedPerson) => {
+    returnedPerson.id = returnedPerson._id.toString()
+    delete returnedPerson._id
+    delete returnedPerson.__v
+  }
+})
 
 let persons = [
     { 
@@ -75,9 +94,15 @@ app.post('/api/persons', (request, response) => {
     persons = persons.concat(Contact)
   })
 
+// app.get('/api/persons', (request, response) => {
+//     response.json(persons)
+//   })
+
 app.get('/api/persons', (request, response) => {
+  Person.find({}).then(persons => {
     response.json(persons)
   })
+})
 
 app.get('/info',(request, response) => {
     response.send(`<p>Phonebook has info for ${persons.length}</p>
