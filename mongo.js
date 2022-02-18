@@ -17,6 +17,7 @@ const personSchema = new mongoose.Schema({
   name : String,
   number: String,
 })
+
 const Person = mongoose.model('Person', personSchema)
 
 if(process.argv.length === 5) {
@@ -35,8 +36,8 @@ if(process.argv.length === 3) {
   console.log('phonebook:')
 
   Person.find({})
-    .then(result => {
-      result.forEach(person => {
+    .then(person => {
+      person.forEach(person => {
         console.log(`${person.name} ${person.number}`)
       })
       mongoose.connection.close()
