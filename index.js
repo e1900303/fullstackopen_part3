@@ -107,7 +107,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 //     response.status(204).end()
 //   })
 
-app.post('/api/persons', (request, response, next) => {
+app.post('/api/persons', async (request, response, next) => {
     const body = request.body
     console.log(body)
   
@@ -115,12 +115,20 @@ app.post('/api/persons', (request, response, next) => {
       name: body.name,
       number: body.number
     })
-  
+
+    const existUsername = await Person.findOne({ name: request.body.name})
+    
+    if (existUsername) {
+        return response.status(400).json({error: 'name must be unique'})
+  }
+    
+    else {
     person.save().then(savedPerson => {
       response.json(savedPerson)
     })
     .catch(error => next(error))
-  })
+  }
+})
 
 // app.post('/api/persons', (request, response) => {
 //     const id = Math.floor(Math.random()*100 +1)
